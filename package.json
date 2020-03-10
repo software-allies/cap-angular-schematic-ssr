@@ -1,0 +1,47 @@
+{
+  "name": "cap-angular-schematic-ssr",
+  "version": "0.0.1",
+  "description": "CAP Schematics SSR with extra features",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && jasmine src/**/*_spec.js"
+  },
+  "keywords": [
+    "schematics",
+    "ssr",
+    "template"
+  ],
+  "author": {
+    "name": "Software Allies",
+    "url": "https://softwareallies.com"
+  },
+  "contributors": [
+    {
+      "email": "cesar_alonso_m_g@hotmail.com",
+      "name": "César Alonso Magaña Gavilanes",
+      "url": "https://github.com/cesar-alonso-magana"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/software-allies/cap-angular-schematic-ssr"
+  },
+  "schematics": "./src/collection.json",
+  "devDependencies": {
+    "@angular-devkit/core": "^7.3.9",
+    "@angular-devkit/schematics": "^7.3.9",
+    "@types/jasmine": "^3.0.0",
+    "@types/node": "^8.0.31",
+    "@types/parse5": "^5.0.2",
+    "jasmine": "^3.0.0",
+    "parse5": "^5.1.1",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "@angular/cdk": "^8.2.3",
+    "@schematics/angular": "^8.3.23",
+    "schematics-utilities": "^2.0.1",
+    "@nguniversal/express-engine": "^7.1.0"
+  }
+}

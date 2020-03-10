@@ -1,0 +1,15 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "cap-angular-schematic-ssr": {
+      "description": "SSR extra features Schematic",
+      "factory": "./cap-angular-schematic-ssr/index#schematicSSR",
+      "schema": "./cap-angular-schematic-ssr/schema.json"
+    },
+    "ng-add": {
+      "description": "Add schematic",
+      "factory": "./ng-add/index",
+      "schema": "./cap-angular-schematic-ssr/schema.json"
+    }
+  }
+}
