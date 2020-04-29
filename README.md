@@ -47,7 +47,7 @@ angular 8
 [Schematic](https://www.schematics.com/)
 
 ## Version 
-0.0.1
+0.0.3
 
 ## Authors
 Software Allies - [Software Allies](https://github.com/software-allies)
