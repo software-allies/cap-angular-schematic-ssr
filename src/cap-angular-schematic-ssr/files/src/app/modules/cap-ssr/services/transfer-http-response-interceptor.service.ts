@@ -50,9 +50,11 @@ export class TransferHttpResponseInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // clone request and replace 'http://' with 'https://' at the same time
-    /*const httpsReq = req.clone({
-      url: req.url.replace("http://", "https://")
-    });*/
+    const httpsReq = req.clone(
+      /*{
+        url: req.url.replace("http://", "https://")
+      }*/
+    );
 
     // Nothing to do with non-GET requests
     if (req.method !== 'GET') {
