@@ -43,16 +43,16 @@ export class TransferHttpResponseInterceptor implements HttpInterceptor {
       ).toPromise()
       .then(() => { 
         this.isCacheActive = false;
-        console.log('Stop using the cache');
+        // console.log('Stop using the cache');
       });
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // clone request and replace 'http://' with 'https://' at the same time
-    const httpsReq = req.clone({
+    /*const httpsReq = req.clone({
       url: req.url.replace("http://", "https://")
-    });
+    });*/
 
     // Nothing to do with non-GET requests
     if (req.method !== 'GET') {
