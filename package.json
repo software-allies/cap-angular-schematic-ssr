@@ -1,6 +1,6 @@
 {
   "name": "cap-angular-schematic-ssr",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "CAP Schematics SSR with extra features",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -9,7 +9,8 @@
   "keywords": [
     "schematics",
     "ssr",
-    "template"
+    "transfer state http interceptor",
+    "ServerTransferStateModule"
   ],
   "author": {
     "name": "Software Allies",

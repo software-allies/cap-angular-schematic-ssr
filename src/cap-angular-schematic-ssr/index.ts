@@ -12,7 +12,7 @@ import {
   SchematicsException,
   Tree,
   url,
-  externalSchematic,
+  //externalSchematic,
   //SchematicContext
 } from '@angular-devkit/schematics';
 import { FileSystemSchematicContext } from '@angular-devkit/schematics/tools';
@@ -39,9 +39,6 @@ import { readIntoSourceFile } from './cap-utils';
 } from '@schematics/angular/utility/dependencies';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks'; */
 
-
-
-
 /* function addDependencies(): Rule {
   return (host: Tree, context: SchematicContext) => {
     context.addTask(new NodePackageInstallTask());
@@ -54,9 +51,9 @@ import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks'; */
   };
 } */
 
-function addNgUniversalExpressEngine(options: ComponentOptions) {
+/*function addNgUniversalExpressEngine(options: ComponentOptions) {
   return externalSchematic('@nguniversal/express-engine', 'ng-add', { clientProject: options.project || 'myapp'});
-}
+}*/
 
 function addDeclarationToNgModule(options: ComponentOptions): Rule {
   return (host: Tree) => {
@@ -132,7 +129,7 @@ export function schematicSSR(options: ComponentOptions): Rule {
     return chain([
       branchAndMerge(chain([
         // addDependencies(),
-        addNgUniversalExpressEngine(options),
+        // addNgUniversalExpressEngine(options),
         addDeclarationToNgModule(options),
         mergeWith(templateSource)
       ])),
