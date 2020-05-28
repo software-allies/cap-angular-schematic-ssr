@@ -1,6 +1,6 @@
 {
   "name": "cap-angular-schematic-ssr",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "CAP Schematics SSR with extra features",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -20,7 +20,7 @@
     {
       "email": "cesar_alonso_m_g@hotmail.com",
       "name": "César Alonso Magaña Gavilanes",
-      "url": "https://github.com/cesar-alonso-magana"
+      "url": "https://github.com/cesaralonso"
     }
   ],
   "license": "MIT",
