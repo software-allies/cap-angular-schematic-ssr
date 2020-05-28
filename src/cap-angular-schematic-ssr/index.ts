@@ -11,9 +11,7 @@ import {
   Rule,
   SchematicsException,
   Tree,
-  url,
-  //externalSchematic,
-  //SchematicContext
+  url
 } from '@angular-devkit/schematics';
 import { FileSystemSchematicContext } from '@angular-devkit/schematics/tools';
 import { InsertChange } from '@schematics/angular/utility/change';
@@ -33,27 +31,7 @@ import {
 import { Schema as ComponentOptions } from './schema';
 import { getAppName } from './cap-utils/package';
 import { readIntoSourceFile } from './cap-utils';
-/* import {
-  NodeDependencyType,
-  addPackageJsonDependency,
-} from '@schematics/angular/utility/dependencies';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks'; */
 
-/* function addDependencies(): Rule {
-  return (host: Tree, context: SchematicContext) => {
-    context.addTask(new NodePackageInstallTask());
-    addPackageJsonDependency(host, {
-      type: NodeDependencyType.Default,
-      name: '@nguniversal/express-engine',
-      version: '^7.1.0'
-    });
-    return host;
-  };
-} */
-
-/*function addNgUniversalExpressEngine(options: ComponentOptions) {
-  return externalSchematic('@nguniversal/express-engine', 'ng-add', { clientProject: options.project || 'myapp'});
-}*/
 
 function addDeclarationToNgModule(options: ComponentOptions): Rule {
   return (host: Tree) => {
@@ -103,7 +81,7 @@ export function schematicSSR(options: ComponentOptions): Rule {
       options.path = buildDefaultPath(project);
     }
     
-    options.module = findModule(host, options.path, 'app' + MODULE_EXT, ROUTING_MODULE_EXT);
+    options.module = findModule(host, options.path, 'app.server' + MODULE_EXT, ROUTING_MODULE_EXT);
     options.name = '';
     const parsedPath = parseName(options.path!, options.name);
     options.name = parsedPath.name;
@@ -128,8 +106,6 @@ export function schematicSSR(options: ComponentOptions): Rule {
 
     return chain([
       branchAndMerge(chain([
-        // addDependencies(),
-        // addNgUniversalExpressEngine(options),
         addDeclarationToNgModule(options),
         mergeWith(templateSource)
       ])),
