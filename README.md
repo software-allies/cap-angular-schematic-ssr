@@ -1,6 +1,5 @@
 # cap-angular-schematic-ssr  [![NPM version](https://badge.fury.io/js/CAP.svg)](https://npmjs.org/package/CAP) [![Build Status](https://travis-ci.org/Elena%20M.%20Sarabia/CAP.svg?branch=master)](https://travis-ci.org/Elena%20M.%20Sarabia/CAP) [![Generic badge](https://img.shields.io/badge/CAP-Active-<COLOR>.svg)](https://shields.io/)
- This repository is a basic Schematic implementation that add a Transfer State Http Cache Interceptor to avoid duplicated requests (first on server after on browser) on a SSR aplication.
-
+ This repository is a basic Schematic implementation that add a Interceptor with the  Transfer Http Response for SSR request and Cache for Browser requests features.
 
 ## Prerequisites
 * Have an Angular app.
@@ -34,17 +33,31 @@ app
         |-- cap-ssr/
             |-- services/
                 |-- transfer-state-http-cache.interceptor.ts
+            |-- cap-ssr-module.ts
 
 ```
+
+# What does this Schematic
+* This Schematic install a Interceptor Service and a Module placed under src/app/modules/cap-ssr and import the module to app.server.ts.
+
+* With this Transfer State Http Cache Interceptor is possible to avoid duplicated requests (first on server after on browser) on a SSR aplication and use a Cache feature for avoid repeated request on the browser.
+
+## Important
+Configure the CanCache Method to only set to Cache specific Urls.
+
+```
+  canCache(req: HttpRequest<any>): boolean {
+    return (req.url.includes('ifthistextispartoftheurl'));
+  }
+}
+```
+
 
 ## Usage
 angular 8, 9
 
 ## Built With
 [Schematic](https://www.schematics.com/)
-
-## Version 
-0.0.6
 
 ## Authors
 Software Allies - [Software Allies](https://github.com/software-allies)
