@@ -28,6 +28,7 @@ function getHeadersMap(headers: HttpHeaders) {
 export class TransferHttpResponseInterceptor implements HttpInterceptor {
 
   private isCacheActive = true;
+  private cache = new Map<string, any>();
 
   constructor(
     appRef: ApplicationRef, 
@@ -43,23 +44,20 @@ export class TransferHttpResponseInterceptor implements HttpInterceptor {
       ).toPromise()
       .then(() => { 
         this.isCacheActive = false;
-        // console.log('Stop using the cache');
       });
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    // clone request and replace 'http://' with 'https://' at the same time
-    const httpsReq = req.clone(
-      /*{
-        url: req.url.replace("http://", "https://")
-      }*/
-    );
+    // clone request and replace 
+    const httpsReq = req.clone({
+      // url: req.url.replace("http://", "https://")   // Uncomment for replace all http request by https
+      url: req.url
+    });
 
     // Nothing to do with non-GET requests
     if (req.method !== 'GET') {
       return next.handle(httpsReq);
-    }
+    } 
     
     if (!this.isCacheActive) {
       // Cache is no longer active. Pass the request through.
@@ -74,7 +72,7 @@ export class TransferHttpResponseInterceptor implements HttpInterceptor {
 
         // Request found in cache. Respond using it.
         const cachedResponse = this.transferState.get(key, null);
-        
+
         if (cachedResponse) {
           this.transferState.remove(key); // cached response should be used for the very first time
           const response = {
@@ -86,12 +84,30 @@ export class TransferHttpResponseInterceptor implements HttpInterceptor {
           }
           return of(new HttpResponse(response));
         }
+      } else {
+      // Return and set from Cache
+        const cachedResponse = this.cache.get(httpsReq.url);
+        if (cachedResponse) {
+          return of(cachedResponse);
+        }
       }
-      return next.handle(httpsReq);
+
+      // continue request if not cacheable.
+      if (!this.canCache(httpsReq)) {
+        return next.handle(httpsReq);
+      }
+
+      // Return and set to Cache
+      return next.handle(httpsReq).pipe(
+        tap(event => {
+          if (event instanceof HttpResponse) {
+            this.cache.set(httpsReq.url, event);
+          }
+        })
+      );
     }
 
     if (isPlatformServer(this.platformId)) {
-
       // Try saving response to be transferred to browser
       return next.handle(httpsReq).pipe(tap(event => {
         if (event instanceof HttpResponse && event.status == 200) {
@@ -107,5 +123,10 @@ export class TransferHttpResponseInterceptor implements HttpInterceptor {
         }
       }));
     }
+  }
+
+  canCache(req: HttpRequest<any>): boolean {
+    // return (req.url.includes('ifthistextispartoftheurl'));
+    return true;
   }
 }
